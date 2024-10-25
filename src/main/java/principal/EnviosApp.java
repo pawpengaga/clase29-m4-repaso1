@@ -3,6 +3,7 @@ package principal;
 import modelo.Cliente;
 import modelo.Dimension;
 import modelo.Direccion;
+import modelo.DireccionConcreta;
 import modelo.Envio;
 import modelo.EstadoEnvio;
 import modelo.Paquete;
@@ -62,7 +63,25 @@ public class EnviosApp {
 
   public static void main(String[] args) {
 
-    // Aqui es donde va la ejecucion del programa?
+    System.out.println("--------------------------------------------------------------------\n");
+
+    // Creamos direcciones
+    Direccion origen = new DireccionConcreta(22, "Calle principal", "Arica", "1000000");
+    Direccion destino = new DireccionConcreta(900, "Pasaje anonimo", "Alto Hospicio", "??????");
+
+    // Aqui es donde va la ejecucion del programa
+    EnviosApp envio1 = new EnviosApp();
+    // Registramos un cliente
+
+    // Almancenar esto en variables luego 💀
+    envio1.realizarEnvio(envio1.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino), envio1.registrarCliente("Erick Rivera", origen));
+    
+    double costo = envio1.calcularCostoEnvio(envio1.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino));
+
+    System.out.println("Costo del envio: $" + costo);
+    envio1.actualizarEstadoEnvio(envio1.realizarEnvio(envio1.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino), envio1.registrarCliente("Erick Rivera", origen)), EstadoEnvio.EN_TRANSITO);
+
+    envio1.generarReporte();
 
   }
 }

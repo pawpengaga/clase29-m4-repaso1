@@ -9,8 +9,8 @@ public class Tarifa {
     double factorPeso = 500.0F; // Factor por quilo
     double factorDimension = 400.0F; // Factor por volumen
 
-    double pesoCosto = paquete.getPeso() * factorPeso;
-    double dimensionCosto = paquete.getDimension().getVolumen() * factorDimension;
+    double pesoCosto = paquete.getPeso() * (factorPeso / 100);
+    double dimensionCosto = paquete.getDimension().getVolumen() * (factorDimension / 100);
 
     return tarifaBase + pesoCosto + dimensionCosto;
 
