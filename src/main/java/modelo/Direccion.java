@@ -1,7 +1,9 @@
 package modelo;
 
 public abstract class Direccion {
+
   // Hacemos la primera clase abstracta como direccion
+  // Unificamos el concepto de direccion bajo este objeto, esta estandarizado
 
   private int numero; // Aniadido por mi
   private String calle;

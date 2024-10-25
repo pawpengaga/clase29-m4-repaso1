@@ -2,6 +2,8 @@ package modelo;
 
 public class Dimension {
 
+  // Condensamos toda la logica de tratamiento del paquete aqui
+
   // Usamos los 3 ejes de la 3ra dimension
   private double ancho;
   private double alto;
