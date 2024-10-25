@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
@@ -9,10 +10,10 @@ public class Cliente {
   private List<Envio> envios; // clase pendiente
 
 
-  public Cliente(String nombre, Direccion direccion, List<Envio> envios) {
+  public Cliente(String nombre, Direccion direccion) {
     this.nombre = nombre;
     this.direccion = direccion;
-    this.envios = envios;
+    this.envios = new ArrayList<>();
   }
 
   // Metodos de trabajo con las listas
