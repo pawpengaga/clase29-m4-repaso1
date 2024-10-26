@@ -36,10 +36,15 @@ public class EnviosApp {
     return paquete;
   }
 
-  // Ahora quien realiza el envio
-  public Envio realizarEnvio(Paquete paquete, Cliente cliente){
+  // Crea el envio pero no hace nada con el
+  public Envio crearEnvio(Paquete paquete, Cliente cliente){
     Envio envio = new Envio(paquete, cliente);
     cliente.agregarEnvio(envio); // Nos aseguramos de que cada envio pertenezca a un cliente
+    return envio;
+  }
+
+  // Acto formal de enviar el envio declarado
+  public Envio realizarEnvio(Envio envio){
     envios.add(envio);
     return envio;
   }
@@ -53,11 +58,20 @@ public class EnviosApp {
     envio.actualizarEstado(nuevoEstado);
   }
 
-  public void generarReporte(){
+  public void generarReporte(Cliente cliente){
     System.out.println("Reporte de envios:");
-    for (Envio e : envios) {
+    for (Envio e : cliente.getEnvios()) {
       System.out.printf("Cliente: %s, Paquete: %s, Fecha: %s, Estado: %s\n",
       e.getCliente().getNombre(), e.getPaquete().getIdPaquete(), e.getFechaEnvio(), e.getEstado());
+    }
+  }
+
+  public void recorrerPrueba(){
+    for (Cliente cliente : clientes) {
+      System.out.println(cliente.envios);
+    }
+    for (Paquete paquete : paquetes) {
+      System.out.println(paquete);
     }
   }
 
@@ -65,23 +79,30 @@ public class EnviosApp {
 
     System.out.println("--------------------------------------------------------------------\n");
 
-    // Creamos direcciones
+    EnviosApp envioApp = new EnviosApp();
+
+    /************************************************************/
+
+    // CREAR DATA PARA EL ENVIO
     Direccion origen = new DireccionConcreta(22, "Calle principal", "Arica", "1000000");
     Direccion destino = new DireccionConcreta(900, "Pasaje anonimo", "Alto Hospicio", "??????");
 
-    // Aqui es donde va la ejecucion del programa
-    EnviosApp envio1 = new EnviosApp();
-    // Registramos un cliente
+    Paquete paquete1 = envioApp.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino);
+    Cliente cliente1 = envioApp.registrarCliente("Erick Rivera", origen);
+    Envio envio1 = envioApp.crearEnvio(paquete1, cliente1);
+    envioApp.realizarEnvio(envio1);
+    // Se registra el envio con la data por separado
 
-    // Almancenar esto en variables luego 💀
-    envio1.realizarEnvio(envio1.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino), envio1.registrarCliente("Erick Rivera", origen));
-    
-    double costo = envio1.calcularCostoEnvio(envio1.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino));
-
+    double costo = envioApp.calcularCostoEnvio(paquete1);
     System.out.println("Costo del envio: $" + costo);
-    envio1.actualizarEstadoEnvio(envio1.realizarEnvio(envio1.crearPaquete("999", 5.5, new Dimension(30, 5, 10), origen, destino), envio1.registrarCliente("Erick Rivera", origen)), EstadoEnvio.EN_TRANSITO);
 
-    envio1.generarReporte();
+    for (int i = 0; i < EstadoEnvio.values().length -1; i++) {
+      envioApp.actualizarEstadoEnvio(envio1, EstadoEnvio.values()[i]);
+    }
+
+    envioApp.generarReporte(cliente1);
+    
+    // envioApp.recorrerPrueba();
 
   }
 }

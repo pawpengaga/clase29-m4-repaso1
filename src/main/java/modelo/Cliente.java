@@ -7,7 +7,7 @@ public class Cliente {
 
   private String nombre;
   private Direccion direccion;
-  private List<Envio> envios; // clase pendiente
+  public List<Envio> envios; // clase pendiente
 
 
   public Cliente(String nombre, Direccion direccion) {
@@ -25,6 +25,20 @@ public class Cliente {
   public String getNombre(){
     return this.nombre;
   }
+
+  public List<Envio> getEnvios(){
+    return this.envios;
+  }
+
+
+  @Override
+  public String toString() {
+    return "{" +
+      " nombre='" + getNombre() + "'" +
+      ", direccion='" + this.direccion + "'" +
+      " }";
+  }
+
 
 
 }
